@@ -30,9 +30,19 @@ public class Render {
         paint.setColor(Color.WHITE);
         // For each statement below
 
-        for(Point pP : model.getPointsArray())
+        for(SpaceVector sV : model.getPointsArray())
         {
-            canvas.drawPoint(pP.x,pP.y,paint);
+            int halfWidth = canvas.getWidth()/2;
+            int halfHeight = canvas.getHeight()/2;
+            float[] points = new float[4];
+            points[0]=halfWidth;
+            points[1]=halfHeight;
+            points[2]=sV.x+halfWidth;
+            points[3]=sV.y+halfHeight;
+            canvas.drawPoint(sV.x+halfWidth, sV.y+halfHeight, paint);
+            paint.setStrokeWidth(2);
+            canvas.drawLines(points,paint);
+
         }
     }
 }

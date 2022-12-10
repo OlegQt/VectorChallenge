@@ -7,13 +7,14 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class Model {
-    private ArrayList<Point> pointArrayList;
+    private ArrayList<SpaceVector> vectorList;
     private int screenHeight, screenWidth;
 
 
     public Model() {
-    pointArrayList = new ArrayList<>();
-
+        vectorList = new ArrayList<>();
+        SpaceVector sV = new SpaceVector(100, 10);
+        vectorList.add(sV);
     }
 
     public void setScreenSize(int w, int h) {
@@ -25,11 +26,12 @@ public class Model {
     // Add Random point into ArrayList
     public void update(long elapsedTime) {
         Random pR = new Random();
-        pointArrayList.add(new Point(pR.nextInt(1000),pR.nextInt(1000)));
+        //pointArrayList.add(new Point(pR.nextInt(1000),pR.nextInt(1000)));
 
     }
+
     // Return full ArrayList of points
-    public ArrayList<Point> getPointsArray() {
-        return this.pointArrayList;
+    public ArrayList<SpaceVector> getPointsArray() {
+        return this.vectorList;
     }
 }
