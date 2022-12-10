@@ -13,8 +13,10 @@ public class Model {
 
     public Model() {
         vectorList = new ArrayList<>();
-        SpaceVector sV = new SpaceVector(100, 10);
+        SpaceVector sV = new SpaceVector(500, 0);
+        sV.rotateVector(0.51f);
         vectorList.add(sV);
+
     }
 
     public void setScreenSize(int w, int h) {
@@ -25,7 +27,9 @@ public class Model {
 
     // Add Random point into ArrayList
     public void update(long elapsedTime) {
-        Random pR = new Random();
+        long milliard = 1000000000;
+        float angle = (float) (0.01*(elapsedTime/milliard));
+        this.vectorList.get(0).rotateVector(0.01f);
         //pointArrayList.add(new Point(pR.nextInt(1000),pR.nextInt(1000)));
 
     }

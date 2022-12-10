@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VectorChallenge</string>
+    <string name="exit">EXIT</string>
 </resources>
