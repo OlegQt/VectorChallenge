@@ -1,30 +1,65 @@
 package com.example.surfviewvectors.engine;
 
+import android.graphics.Color;
+import android.graphics.PointF;
 
+import java.util.Random;
 
 public class SpaceVector {
-    protected float x ,y; // Vector coordinates. Vector stars at {0,0}
-    public SpaceVector(int x, int y){
-        this.x=x;
-        this.y=y;
+    private final String name;
+    private PointF start, end; // Vector start and end points
+
+    protected SpaceVector(String strName) {
+        this.name = strName;
+        start = new PointF();
+        end = new PointF();
+        this.randomVector(1400);
     }
-    public void rotateVector(float angle){
+
+    private void randomVector(int bounds) {
+        Random pRandom = new Random();
+        end.x = pRandom.nextFloat() * 100;
+        float offSetX=pRandom.nextFloat()*bounds - (float) bounds/2;
+        float offSetY=pRandom.nextFloat()*bounds - (float) bounds/2;
+        moveVector(offSetX,offSetY);
+        this.rotate((float) (pRandom.nextFloat()*Math.PI));
+    }
+
+    protected void moveVector(float x, float y) {
+        start.x += x;
+        end.x += x;
+        start.y += y;
+        end.y += y;
+    }
+
+    protected void rotate(float angle){
+        //Смещаем в начало координат
+        float xOffSet = start.x;
+        float yOffSet = start.y;
+        moveVector(-xOffSet,-yOffSet);
         // Умножаем на матрицу поворода вектора на угол
-        float x1= (float) (x*Math.cos(angle)+y*Math.sin(angle));
-        float y1= (float) (y*Math.cos(angle)-x*Math.sin(angle));
-        this.x=x1;
-        this.y=y1;
+        float x1= (float) (end.x*Math.cos(angle)+end.y*Math.sin(angle));
+        float y1= (float) (end.y*Math.cos(angle)-end.x*Math.sin(angle));
+        end.x=x1;
+        end.y=y1;
+        // Переносим вектор обратно по координатной плоскости
+        moveVector(xOffSet,yOffSet);
     }
-    public void sumVector(SpaceVector sV,String sign)
-    {
-        if(sign.equals("+")) {
-            this.x += sV.x;
-            this.y += sV.y;
-        }
-        else if(sign.equals("-"))
-        {
-            this.x -= sV.x;
-            this.y -= sV.y;
-        }
+
+    protected float getLength(){
+        float dX = (float) Math.pow((double) end.x- start.x,2.0);
+        float dY = (float) Math.pow((double) end.y- start.y,2.0);
+        return (float)Math.sqrt(dX+dY);
+    }
+
+    protected float getColorIntensity(float maxLength){
+       return 255.0f * this.getLength()/maxLength;
+    }
+
+    protected float[] getPoints() {
+        return new float[]{start.x, start.y, end.x, end.y};
+    }
+    protected float[] getPointsOffSet(int W, int H) {
+        return new float[]{start.x+W, start.y+H, end.x+W, end.y+H};
     }
 }
