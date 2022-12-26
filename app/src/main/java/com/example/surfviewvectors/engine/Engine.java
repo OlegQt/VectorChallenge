@@ -1,10 +1,12 @@
 package com.example.surfviewvectors.engine;
 
 import android.graphics.Canvas;
+import android.os.Build;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 public class Engine {
     private final Model model;
@@ -17,6 +19,7 @@ public class Engine {
     long time = System.nanoTime();
 
     Runnable thread = new Runnable() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void run() {
             while (!stopped) {
@@ -74,11 +77,13 @@ public class Engine {
         surface.getHolder().addCallback(callBack);
     }
 
-    public String GetCurrentPointsCount() {
-        if(this.model!=null){
-            return "3";
+    public void sendInfoToModel(int param, float value) {
+        if(param==0){
+            model.setMotionSpeed(value);
         }
-        else return "Error";
+        else if(param==1){
+            model.setAdditionalInfo(true);
+        }
     }
 
 }

@@ -44,12 +44,14 @@
         </Button>
     </LinearLayout>
     <com.google.android.material.slider.Slider
+        android:id="@+id/sld"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginTop="16sp"
-        android:stepSize="5"
-        android:valueFrom="0"
+        android:stepSize="10"
+        android:valueFrom="-100"
         android:valueTo="100"
+        android:value="30"
         >
     </com.google.android.material.slider.Slider>
 

@@ -13,6 +13,7 @@ public class SpaceVector {
         this.name = strName;
         start = new PointF();
         end = new PointF();
+
         this.randomVector(1400);
     }
 
